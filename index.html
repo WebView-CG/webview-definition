@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebView Definition</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      var respecConfig = {
+        specStatus: "CG-DRAFT",
+    editors: [{
+        name: "Ashley Gullen",
+        company: "Scirra",
+        companyURL: "https://www.scirra.com/"
+      }, {
+        name: "Niklas Merz",
+        company: "Apache Software Foundation",
+        companyURL: "https://www.apache.org/"
+      }],
+        github: "WebView-CG/webview-definition",
+        xref: ["webview-definition"],
+        group: "cg/webview",
+      };
+    </script>
+  </head>
+  <body>
+    <section id="abstract">
+      <p>This document aims to define WebViews</p>
+    </section>
+    <section id="sotd">
+    </section>
+    <section class="informative">
+      <h2>Web Browser vs. WebView Definition</h2>
+      <p>
+        The WebView CG identified a need to come up with a definition to clearly identify a web browser vs. WebView. This was discussed via email
+        <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">here</a>.
+      </p>
+      <p>
+        Here is my attempt to summarise the discussion. Let me know if I missed anything important from the email discussion in this summary. Note that the goal here is only to define a web browser vs. webview, and not to define different types of webview (<a href="https://github.com/WebView-CG/usage-and-challenges/issues/19">see #19</a> for that).
+      </p>
+      <section>
+        <h3>Use Cases Discussed</h3>
+        <ul>
+          <li>Web browsers (e.g. Chrome, Firefox, Safari)</li>
+          <li>In-app browsers like Android Custom Tabs, SFSafariViewController</li>
+          <li>WebView embedded in app (e.g. Android WebView or Microsoft Edge WebView2 as a view inside an app)</li>
+          <li>A web browser built using an embedded WebView (e.g. with a URL bar added above a WebView)</li>
+          <li>A web browser in "kiosk" mode (fullscreen, no address bar, restricted navigation)</li>
+          <li>An iframe within web content</li>
+          <li>A web browser with a browser extension that intercepts network requests</li>
+          <li>A web browser in private browsing mode</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Definitions Discussed</h3>
+        <p>
+          A specification's definition of a webview should not refer to specific technologies like Android WebView or WKWebView. The general consensus appeared to be the definition should focus on how the web content is used. Definitions discussed included:
+        </p>
+        <ul>
+          <li>Whether the user can enter their own URL to navigate to</li>
+          <li>
+            "Embedded" (e.g. WKWebView) vs "System" (e.g. Custom Tabs) WebViews, which differ by whether they run in a separate context, or the same context as a web browser on the device
+          </li>
+          <li>Whether the user may "freely navigate the web" (i.e. browsing, since they are called "web browsers" after all)</li>
+          <li>Whether certain UX features are available (e.g. managing security and privacy, back/forward button, bookmarks...)</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Additional Points Raised</h3>
+        <ul>
+          <li>In-app browsers like SFSafariViewController are usually virtually identical to a regular web browser, differing only by user interface</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Proposed Definition</h3>
+        <p>
+          In conclusion I would propose that the definition of a web browser is where the user may freely navigate the web. What identifies a WebView is the fact that navigation is restricted to a certain set of content that the app developer wishes to provide, and therefore free navigation of the open web is not allowed.
+        </p>
+        <h4>Web Browser</h4>
+        <p>Under this definition, things that count as a web browser include:</p>
+        <ul>
+          <li>Web browsers like Chrome, Firefox and Safari</li>
+          <li>Web browsers in private browsing mode</li>
+          <li>Web browsers with browser extension that do things like intercept network requests</li>
+          <li>A web browser built using an embedded WebView (as the purpose of the app is to allow free navigation of the web) - resolving <a href="https://github.com/WebView-CG/webview-definition/issues/41">#41</a></li>
+          <li>
+            In-app browsers like Android Custom Tabs and SFSafariViewController - despite the fact these do not show an editable URL bar, they typically function like web browsers in every other respect, including allowing free navigation through links in the web content
+          </li>
+        </ul>
+        <h4>WebView</h4>
+        <p>Under this definition things that count as a WebView include:</p>
+        <ul>
+          <li>WebView embedded in app (e.g. Android WebView or Microsoft Edge WebView2 as a view inside an app)</li>
+          <li>A web browser in "kiosk" mode (as navigation is restricted) - this is a tricky one to define either way but in my opinion this is an appropriate categorisation</li>
+        </ul>
+        <p>
+          Whether web content uses an iframe does not affect this definition, as it essentially only takes in to account how the top frame is used. For clarity perhaps this should be incorporated in to the definition, i.e. "in a web browser the user may freely navigate the web in the top frame of the browsing context".
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
