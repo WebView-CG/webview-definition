@@ -12,13 +12,15 @@
       // All config options at https://respec.org/docs/
       var respecConfig = {
         specStatus: "CG-DRAFT",
-    editors: [{
-        name: "Ashley Gullen",
-        company: "Scirra",
-        companyURL: "https://www.scirra.com/"
-      }, {
+      authors: [{
+          name: "Ashley Gullen",
+          company: "Scirra",
+          companyURL: "https://www.scirra.com/"
+        }],
+      editors: [{
         name: "Niklas Merz",
         company: "Apache Software Foundation",
+        mailto: "niklasmerz@apache.org",
         companyURL: "https://www.apache.org/"
       }],
         github: "WebView-CG/webview-definition",
@@ -33,7 +35,7 @@
     </section>
     <section id="sotd">
     </section>
-    <section class="informative">
+    <section class="introductory">
       <h2>Web Browser vs. WebView Definition</h2>
       <p>
         The WebView CG identified a need to come up with a definition to clearly identify a web browser vs. WebView. This was discussed via email
@@ -42,7 +44,7 @@
       <p>
         Here is my attempt to summarise the discussion. Let me know if I missed anything important from the email discussion in this summary. Note that the goal here is only to define a web browser vs. webview, and not to define different types of webview (<a href="https://github.com/WebView-CG/usage-and-challenges/issues/19">see #19</a> for that).
       </p>
-      <section>
+      <section class="informative">
         <h3>Use Cases Discussed</h3>
         <ul>
           <li>Web browsers (e.g. Chrome, Firefox, Safari)</li>
@@ -55,7 +57,7 @@
           <li>A web browser in private browsing mode</li>
         </ul>
       </section>
-      <section>
+      <section class="informative">
         <h3>Definitions Discussed</h3>
         <p>
           A specification's definition of a webview should not refer to specific technologies like Android WebView or WKWebView. The general consensus appeared to be the definition should focus on how the web content is used. Definitions discussed included:
@@ -69,13 +71,13 @@
           <li>Whether certain UX features are available (e.g. managing security and privacy, back/forward button, bookmarks...)</li>
         </ul>
       </section>
-      <section>
+      <section class="informative">
         <h3>Additional Points Raised</h3>
         <ul>
           <li>In-app browsers like SFSafariViewController are usually virtually identical to a regular web browser, differing only by user interface</li>
         </ul>
       </section>
-      <section>
+      <section class="informative">
         <h3>Proposed Definition</h3>
         <p>
           In conclusion I would propose that the definition of a web browser is where the user may freely navigate the web. What identifies a WebView is the fact that navigation is restricted to a certain set of content that the app developer wishes to provide, and therefore free navigation of the open web is not allowed.
