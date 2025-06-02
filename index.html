@@ -31,21 +31,45 @@
   </head>
   <body>
     <section id="abstract">
-      <p>This document aims to define WebViews</p>
+      <h2>Abstract</h2>
+      <p>This document aims to define what a <a>WebView</a> is.</p>
     </section>
     <section id="sotd">
+      <p>
+        This document is a work in progress. It is intended to provide clarity on the definition of a WebView, which has been a topic of discussion within the WebView Community Group.
+      </p>
     </section>
-    <section class="introductory">
-      <h2>Web Browser vs. WebView Definition</h2>
+    <section id="introduction">
+      <h2>Introduction</h2>
       <p>
-        The WebView CG identified a need to come up with a definition to clearly identify a web browser vs. WebView. This was discussed via email
-        <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">here</a>.
+        The WebView Community Group has identified a lack of clarity and consensus around the definition of a <a>WebView</a>. This has
+        led to confusion among developers and users alike, as the term is often used inconsistently across different platforms
+        and contexts.
       </p>
       <p>
-        Here is my attempt to summarise the discussion. Let me know if I missed anything important from the email discussion in this summary. Note that the goal here is only to define a web browser vs. webview, and not to define different types of webview (<a href="https://github.com/WebView-CG/usage-and-challenges/issues/19">see #19</a> for that).
+        <strong>Non-goal:</strong> The purpose of this document is to define what a WebView is. It does not attempt to categorize or define different types of WebViews (<a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">see the usages and challenges explainer</a> for that).
+
+        <aside class="note">
+          <p> TODO: Move types from other report here?</p>
+        </aside>
       </p>
-      <section class="informative">
-        <h3>Use Cases Discussed</h3>
+    </section>
+    <section id="informative">
+      <h2>How do WebViews differ from other user agents, such as browsers?</h2>
+      <p>
+        This was discussed via <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">e-mail</a>. <a>WebViews</a> are usually locked down and configured by apps embedding them to fit their use case. Sometimes they are used to build fully featured browsers or show general web content.
+      </p>
+      <section>
+        <h3>WebView User Experience</h3>
+        <ul>
+          <li>Whether the user can enter their own URL to navigate to</li>
+          <li>"Embedded" (e.g. WKWebView) vs "System" (e.g. Custom Tabs) WebViews, which differ by whether they run in a separate context, or the same context as a web browser on the device</li>
+          <li>Whether the user may "freely navigate the web" (i.e. browsing, since they are called "web browsers" after all)</li>
+          <li>Whether certain UX features are available (e.g. managing security and privacy, back/forward button, bookmarks...)</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Use Cases</h3>
         <ul>
           <li>Web browsers (e.g. Chrome, Firefox, Safari)</li>
           <li>In-app browsers like Android Custom Tabs, SFSafariViewController</li>
@@ -57,50 +81,35 @@
           <li>A web browser in private browsing mode</li>
         </ul>
       </section>
-      <section class="informative">
-        <h3>Definitions Discussed</h3>
-        <p>
-          A specification's definition of a webview should not refer to specific technologies like Android WebView or WKWebView. The general consensus appeared to be the definition should focus on how the web content is used. Definitions discussed included:
-        </p>
-        <ul>
-          <li>Whether the user can enter their own URL to navigate to</li>
-          <li>
-            "Embedded" (e.g. WKWebView) vs "System" (e.g. Custom Tabs) WebViews, which differ by whether they run in a separate context, or the same context as a web browser on the device
-          </li>
-          <li>Whether the user may "freely navigate the web" (i.e. browsing, since they are called "web browsers" after all)</li>
-          <li>Whether certain UX features are available (e.g. managing security and privacy, back/forward button, bookmarks...)</li>
-        </ul>
-      </section>
-      <section class="informative">
+      <section >
         <h3>Additional Points Raised</h3>
         <ul>
-          <li>In-app browsers like SFSafariViewController are usually virtually identical to a regular web browser, differing only by user interface</li>
+          <li>In-app browsers like SFSafariViewController are usually virtually identical to a regular web browser, differing only by user interface.</li>
         </ul>
       </section>
-      <section class="informative">
-        <h3>Proposed Definition</h3>
+    </section>
+    <section id="definition">
+      <h2>Proposed Definition</h2>
+      <section>
+        <h3>What is a WebView?</h3>
         <p>
-          In conclusion I would propose that the definition of a web browser is where the user may freely navigate the web. What identifies a WebView is the fact that navigation is restricted to a certain set of content that the app developer wishes to provide, and therefore free navigation of the open web is not allowed.
+          A <dfn>WebView</dfn> is defined as a software component that is used to render Web technology-based content outside of a Web browser (Native Apps, MiniApps, etc).
         </p>
-        <h4>Web Browser</h4>
-        <p>Under this definition, things that count as a web browser include:</p>
-        <ul>
-          <li>Web browsers like Chrome, Firefox and Safari</li>
-          <li>Web browsers in private browsing mode</li>
-          <li>Web browsers with browser extension that do things like intercept network requests</li>
-          <li>A web browser built using an embedded WebView (as the purpose of the app is to allow free navigation of the web) - resolving <a href="https://github.com/WebView-CG/webview-definition/issues/41">#41</a></li>
-          <li>
-            In-app browsers like Android Custom Tabs and SFSafariViewController - despite the fact these do not show an editable URL bar, they typically function like web browsers in every other respect, including allowing free navigation through links in the web content
-          </li>
-        </ul>
-        <h4>WebView</h4>
-        <p>Under this definition things that count as a WebView include:</p>
-        <ul>
-          <li>WebView embedded in app (e.g. Android WebView or Microsoft Edge WebView2 as a view inside an app)</li>
-          <li>A web browser in "kiosk" mode (as navigation is restricted) - this is a tricky one to define either way but in my opinion this is an appropriate categorisation</li>
-        </ul>
         <p>
-          Whether web content uses an iframe does not affect this definition, as it essentially only takes in to account how the top frame is used. For clarity perhaps this should be incorporated in to the definition, i.e. "in a web browser the user may freely navigate the web in the top frame of the browsing context".
+          If you look at how the web content is used—for example, if you can freely navigate the web or certain UX elements exist—you could determine which <a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">type of WebView</a> and whether who the user agent is.
+        </p>
+
+        <aside class="note">
+          <p> TODO: Clarify UX based definition vs framework</p>
+        </aside>
+      </section>
+      <section>
+        <h3>User Agent Considerations</h3>
+        <p>
+          Whether a <a>WebView</a> is a <a href="https://w3ctag.github.io/user-agents/">user agent</a> or not is difficult to tell. In cases where a WebView acts as a general-purpose browser, it could be considered a user agent.
+        </p>
+        <p>
+          If a WebView is used in such a way that it's not transparent to the user that they are interacting with web content or the app embedding the WebView is interacting with the Web content, it's less clear if all duties of a user agent are fulfilled, and the embedding app might become the user agent.
         </p>
       </section>
     </section>
