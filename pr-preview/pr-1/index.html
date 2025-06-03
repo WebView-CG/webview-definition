@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebView Definition</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      var respecConfig = {
+        specStatus: "CG-DRAFT",
+      authors: [{
+          name: "Ashley Gullen",
+          company: "Scirra",
+          companyURL: "https://www.scirra.com/"
+        }],
+      editors: [{
+        name: "Niklas Merz",
+        company: "Apache Software Foundation",
+        mailto: "niklasmerz@apache.org",
+        companyURL: "https://www.apache.org/"
+      }],
+        github: "WebView-CG/webview-definition",
+        xref: ["webview-definition"],
+        group: "cg/webview",
+      };
+    </script>
+  </head>
+  <body>
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>This document aims to define what a <a>WebView</a> is.</p>
+    </section>
+    <section id="sotd">
+      <p>
+        This document is a work in progress. It is intended to provide clarity on the definition of a WebView, which has been a topic of discussion within the WebView Community Group.
+      </p>
+    </section>
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>
+        The WebView Community Group has identified a lack of clarity and consensus around the definition of a <a>WebView</a>. This has
+        led to confusion among developers and users alike, as the term is often used inconsistently across different platforms
+        and contexts.
+      </p>
+      <p>
+        <strong>Non-goal:</strong> The purpose of this document is to define what a WebView is. It does not attempt to categorize or define different types of WebViews (<a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">see the usages and challenges explainer</a> for that).
+
+        <aside class="note">
+          <p> TODO: Move types from other report here?</p>
+        </aside>
+      </p>
+    </section>
+    <section id="informative">
+      <h2>How do WebViews differ from other user agents, such as browsers?</h2>
+      <p>
+        This was discussed via <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">e-mail</a>. <a>WebViews</a> are usually locked down and configured by apps embedding them to fit their use case. Sometimes they are used to build fully featured browsers or show general web content.
+      </p>
+      <section>
+        <h3>WebView User Experience</h3>
+        <ul>
+          <li>Whether the user can enter their own URL to navigate to</li>
+          <li>"Embedded" (e.g. WKWebView) vs "System" (e.g. Custom Tabs) WebViews, which differ by whether they run in a separate context, or the same context as a web browser on the device</li>
+          <li>Whether the user may "freely navigate the web" (i.e. browsing, since they are called "web browsers" after all)</li>
+          <li>Whether certain UX features are available (e.g. managing security and privacy, back/forward button, bookmarks...)</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Use Cases</h3>
+        <ul>
+          <li>Web browsers (e.g. Chrome, Firefox, Safari)</li>
+          <li>In-app browsers like Android Custom Tabs, SFSafariViewController</li>
+          <li>WebView embedded in app (e.g. Android WebView or Microsoft Edge WebView2 as a view inside an app)</li>
+          <li>A web browser built using an embedded WebView (e.g. with a URL bar added above a WebView)</li>
+          <li>A web browser in "kiosk" mode (fullscreen, no address bar, restricted navigation)</li>
+          <li>An iframe within web content</li>
+          <li>A web browser with a browser extension that intercepts network requests</li>
+          <li>A web browser in private browsing mode</li>
+        </ul>
+      </section>
+      <section >
+        <h3>Additional Points Raised</h3>
+        <ul>
+          <li>In-app browsers like SFSafariViewController are usually virtually identical to a regular web browser, differing only by user interface.</li>
+        </ul>
+      </section>
+    </section>
+    <section id="definition">
+      <h2>Proposed Definition</h2>
+      <section>
+        <h3>What is a WebView?</h3>
+        <p>
+          A <dfn>WebView</dfn> is defined as a software component that is used to render Web technology-based content outside of a Web browser (Native Apps, MiniApps, etc).
+        </p>
+        <p>
+          If you look at how the web content is used—for example, if you can freely navigate the web or certain UX elements exist—you could determine which <a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">type of WebView</a> and whether who the user agent is.
+        </p>
+
+        <aside class="note">
+          <p> TODO: Clarify UX based definition vs framework</p>
+        </aside>
+      </section>
+      <section>
+        <h3>User Agent Considerations</h3>
+        <p>
+          Whether a <a>WebView</a> is a <a href="https://w3ctag.github.io/user-agents/">user agent</a> or not is difficult to tell. In cases where a WebView acts as a general-purpose browser, it could be considered a user agent.
+        </p>
+        <p>
+          If a WebView is used in such a way that it's not transparent to the user that they are interacting with web content or the app embedding the WebView is interacting with the Web content, it's less clear if all duties of a user agent are fulfilled, and the embedding app might become the user agent.
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
