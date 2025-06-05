@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>WebView Definition</title>
+    <title>WebView Explainer</title>
     <script
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
@@ -11,11 +11,18 @@
     <script class="remove">
       // All config options at https://respec.org/docs/
       var respecConfig = {
-        specStatus: "CG-DRAFT",
+      specStatus: "CG-DRAFT",
+      subtitle: "WebView Definition & Types",
       authors: [{
           name: "Ashley Gullen",
           company: "Scirra",
           companyURL: "https://www.scirra.com/"
+        },
+        {
+          name: "Niklas Merz",
+          company: "Apache Software Foundation",
+          mailto: "niklasmerz@apache.org",
+          companyURL: "https://www.apache.org/"
         }],
       editors: [{
         name: "Niklas Merz",
@@ -24,7 +31,7 @@
         companyURL: "https://www.apache.org/"
       }],
         github: "WebView-CG/webview-definition",
-        xref: ["webview-definition"],
+        xref: ["webview-explainer"],
         group: "cg/webview",
       };
     </script>
@@ -47,17 +54,14 @@
         and contexts.
       </p>
       <p>
-        <strong>Non-goal:</strong> The purpose of this document is to define what a WebView is. It does not attempt to categorize or define different types of WebViews (<a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">see the usages and challenges explainer</a> for that).
-
-        <aside class="note">
-          <p> TODO: Move types from other report here?</p>
-        </aside>
+        <strong>Non-goal:</strong> The purpose of this document is to define what a WebView is and which types of WebViews exist. It is not intended to provide a comprehensive overview of all WebView implementations or their specific features. 
+        You can find more information about the implementations in the <a href="https://webview-cg.github.io/usage-and-challenges/#implementations">usage and challenges report</a>.
       </p>
     </section>
     <section id="informative">
       <h2>How do WebViews differ from other user agents, such as browsers?</h2>
       <p>
-        This was discussed via <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">e-mail</a>. <a>WebViews</a> are usually locked down and configured by apps embedding them to fit their use case. Sometimes they are used to build fully featured browsers or show general web content.
+        This was discussed via <a href="https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html">e-mail</a> in the WebView CG. <a>WebViews</a> are usually locked down and configured by apps embedding them to fit their use case. Sometimes they are used to build fully featured browsers or show general web content.
       </p>
       <section>
         <h3>WebView User Experience</h3>
@@ -96,14 +100,14 @@
           A <dfn>WebView</dfn> is defined as a software component that is used to render Web technology-based content outside of a Web browser (Native Apps, MiniApps, etc).
         </p>
         <p>
-          If you look at how the web content is used—for example, if you can freely navigate the web or certain UX elements exist—you could determine which <a href="https://webview-cg.github.io/usage-and-challenges/#types-of-webviews">type of WebView</a> and whether who the user agent is.
+          If you look at how the web content is used—for example, if you can freely navigate the web or certain UX elements exist—you could determine which <a href="#types-of-webviews">type of WebView</a> and whether who the user agent is.
         </p>
 
-        <aside class="note">
+        <aside class="warning">
           <p> TODO: Clarify UX based definition vs framework</p>
         </aside>
       </section>
-      <section>
+      <section class="informative">
         <h3>User Agent Considerations</h3>
         <p>
           Whether a <a>WebView</a> is a <a href="https://w3ctag.github.io/user-agents/">user agent</a> or not is difficult to tell. In cases where a WebView acts as a general-purpose browser, it could be considered a user agent.
@@ -112,6 +116,48 @@
           If a WebView is used in such a way that it's not transparent to the user that they are interacting with web content or the app embedding the WebView is interacting with the Web content, it's less clear if all duties of a user agent are fulfilled, and the embedding app might become the user agent.
         </p>
       </section>
+    </section>
+    <section class="informative">
+      <h3>Types of WebViews</h3>
+
+      <section class="informative">
+        <h4>WebView Properties</h4>
+        <p>[=WebViews=] can differ based on the following properties:</p>
+        <p>
+        <ul>
+          <li><dfn data-lt="UX flexibility|flexible"><abbr title="User Experience">UX</abbr> flexibility</dfn>: Whether
+            the native application has full control over the UX provided by the WebView or whether the WebView imposes
+            the UX with limited customization and control from the native application.</li>
+          <li><dfn data-lt="Access to the web content|Access the web content">Access to the web content</dfn>: Whether the
+            native application has the ability to read and modify the web content rendered in the WebView. The native
+            application can leverage this to establish a communication link between the native code and the Web code, and
+            in particular to expose native APIs to the Web content, making it possible for the Web content to make native
+            calls.</li>
+          <li><dfn data-lt="State sharing|Share state">State sharing</dfn>: Whether the WebView shares state such as
+            cookies and cache with the system-wide web browser, or is completely isolated.</li>
+        </ul>
+        </p>
+      </section>
+      <section class="">
+        <h4>WebView Categories</h4>
+        <p>In practice, [=WebViews=] are classified into one of two categories with fixed properties:</p>
+        <dl>
+          <dt><dfn>Browser-like</dfn> WebViews</dt>
+          <dd>These WebViews are straightforward to embed with a simpler API surface mostly targeted at loading the web
+            page. They are generally not [=flexible=], do not provide [=access to the web content=], but [=share state=]
+            with the system-wide web browser.</dd>
+          <dt><dfn>Fully-fledged</dfn> WebViews</dt>
+          <dd>These WebViews are used for creating richer experiences and feature powerful integration primitives. They
+            have full [=UX flexibility=] when integrated within an application, provide the ability to [=access the web
+            content=] (native and web parts of the application can communicate), and do not [=share state=] with the
+            system-wide web browser.</dd>
+        </dl>
+      </section>
+
+      <aside class="note">
+        <p>The <a href="https://webview-cg.github.io/usage-and-challenges/#implementations">"WebView: Usage Scenarios and Challenges" report</a> goes into detail and puts implementations into the [=Browser-like=] and [=Fully-fledged=] categories.</p>
+      </aside>
+    </section>
     </section>
   </body>
 </html>
